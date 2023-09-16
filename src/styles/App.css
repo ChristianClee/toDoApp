@@ -1,0 +1,236 @@
+.todo-wrap {
+  width: 100%;
+  max-width: 70rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem
+}
+.todo>*:first-child{
+  padding-left: 0;
+}
+
+
+.todo-wrap__title {
+  margin-top: 2rem;
+  font-size: 5rem;
+}
+.todo {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  /* background-color: rgb(30, 52, 71); */
+  font-size: var(--font-font-s-main);
+  gap: 1px
+}
+.todo__row input{
+  font-size: var(--font-font-s-main);
+  background-color: transparent;
+  color: var(--text-input);
+  width: 100%;
+  height: 100%;
+  padding: 0 5rem;
+  transition: .25s;
+  z-index: 3;
+}
+.todo__row input::placeholder{
+  color: rgb(173, 174, 174);
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.todo__arrow{
+  content: '';
+  /* display: block; */
+  fill: black;
+  position: absolute;
+  top: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  left: 1rem;
+  transform: translateY(-50%) rotate(0deg);
+  z-index: 2;
+  transition: .25s;
+}
+/* .todo__row i.active{
+  transform: translateY(-50%) rotate(0deg)
+} */
+
+
+.todo__row input~div{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background-color: rgb(172, 243, 133);
+  transition: .25s;
+  z-index: 1;
+}
+.todo__row input:focus~div,
+.todo__row input:valid~div
+{
+  height: 100%;
+}
+
+.todo__row input:focus~.todo__arrow,
+.todo__row input:valid~.todo__arrow
+ {
+  transform: translateY(-50%) rotate(90deg);
+  /* background-color: aquamarine; */
+}
+
+.todo__row {
+  position: relative;
+  background-color: antiquewhite;
+  border: 1px solid var(--border-color);
+  height: 3.5rem;
+  padding-left: 5rem;
+  display: flex;
+  align-items: center;
+  color: var(--text-main);
+}
+.todo__row--anim{
+  transition: .25s;
+  cursor: pointer;
+}
+.todo__row--anim:hover{
+  background-color: rgb(235, 180, 109);
+}
+.todo__row--anim:hover p{
+  color: var(--text-hover)
+}
+.todo__row p{
+  position: relative;
+}
+.todo__row p.active{
+  color: var(--text-active);
+}
+.todo__row p.active:before{
+  content: '';
+  position: absolute;
+  top: 62%;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  transform: translateY(-50%);
+  background-color: var(--text-active)
+}
+.todo__row span{
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  top:50%;
+  left: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+.todo__row span.active::before{
+  content: '';
+  position: absolute;
+  bottom: 10%;
+  left: -36%;
+  width: 75%;
+  height: 2px;
+  border-radius: 2px;
+  transform-origin: bottom right;
+  transform: rotate(120deg);
+  background-color: var(--border-color);
+}
+.todo__row span.active::after{
+  content: '';
+  position: absolute;
+  border-radius: 2px;
+  bottom: 8%;
+  left: 11%;
+  width: 31%;
+  height: 2px;
+  transform-origin: bottom right;
+  transform: rotate(60deg);
+  background-color: var(--border-color);
+}
+.todo__row--anim:hover span{
+  border: 1px solid var(--text-hover);
+}
+.todo__row--anim:hover span.active::before{
+  background-color: var(--text-hover);
+}
+.todo__row--anim:hover span.active::after{
+  background-color: var(--text-hover);
+}
+
+
+
+.todo nav{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  font-size: var(--font-font-s-button);
+}
+.todo nav button{
+  cursor: pointer;
+  color: var(--collor-text-button);
+  transition: .25s;
+}
+.todo nav button:hover{
+  color: var(--collor-text-button-hover);
+}
+
+.todo__items {
+  display: flex;
+  gap: 0.5rem;
+}
+.todo__items p{
+  padding: .3rem;
+  flex-shrink: 0;
+}
+
+.todo__sort {
+  display: flex;
+  gap: .5rem;
+  /* background-color: red; */
+}
+.todo__sort button{
+  background-color: transparent;
+  font-size: var(--font-font-s-button);
+  padding: .3rem 1rem;
+  flex-shrink: 0;
+}
+.todo__sort button.active{
+  border: 1px solid var(--border-color);
+}
+.todo__clean {
+
+}
+.todo__clean button{
+  font-size: var(--font-font-s-button);
+  padding: .3rem 1rem;
+  background-color: transparent;
+  padding: .3rem 1rem;
+  
+}
+
+@media(max-width: 800px){
+
+  .todo>*:last-child{
+    height: auto;
+  }
+  .todo nav{
+    flex-direction: column;
+    /* align-items: start; */
+  }
+}
+@media(max-width: 650px){
+  html{
+    font-size: 70%;
+  }
+}
+@media(max-width: 400px){
+  html{
+    font-size: 50%;
+  }
+}
