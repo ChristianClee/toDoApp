@@ -30,7 +30,7 @@
   color: var(--text-input);
   width: 100%;
   height: 100%;
-  padding: 0 5rem;
+  padding: 0 7rem;
   transition: .25s;
   z-index: 3;
 }
@@ -39,6 +39,52 @@
   font-size: 1.2rem;
   text-align: center;
 }
+
+.todo__input-button{
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 7rem;
+  font-size: 1.5rem;
+  border: 1px solid black;
+  z-index: 5;
+  background-color: rgb(225, 162, 4);
+  
+}
+.todo__input-button::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -65%;
+  width: 120%;
+  height: 120%;
+  transform: translateY(-2.7rem);
+  border: 3px solid green;
+  background-color: rgba(0, 128, 0, 0.362);
+  transition: .25s;
+  z-index: -1;
+}
+.todo__input-button:hover::before {
+  transform: translateY(0);
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+   /* width: 100%;
+   height: 100%; */
+}
+.todo__input-button:active::before{
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+.todo__input-button:active{
+  color: white;
+}
+
+
 
 .todo__arrow{
   content: '';

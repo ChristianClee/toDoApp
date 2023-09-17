@@ -3,7 +3,7 @@ import { useActions } from "../../redux/reduxHooks"
 import { toDoSelect } from "../../redux/toDoSlice"
 import { useSelector } from "react-redux"
 import { ReactComponent as Arrow } from "../assets/svg/arrow.svg"
-import { onchange, onkeydown } from "../utilits/utilits"
+import { onchange, onkeydown, onclick } from "../utilits/utilits"
 
 
 
@@ -13,6 +13,7 @@ const ToDoInput: React.FC = () => {
   return (
     <div className="todo__row">
       <Input />                                    {/*Input вынесен в отдельную функцию для удобства, через него вводятся новые задачи */}
+      <Button />                                   {/* Input вынесен в отдельную функцию для удобства, при помощи кнопки добавляются новые задачи */}
       <Arrow className='todo__arrow' />            {/* это svg элемент, стрелка */}
       <div className='todo__background'></div>
     </div>
@@ -39,5 +40,21 @@ const Input: React.FC = () => {
       onChange={(e) => onchange(e, getInputValue)}
       onKeyDown={(e) => onkeydown(e, addTasks, getInputValue, tasks)}
     />
+  );
+}
+
+
+
+const Button: React.FC = () => {
+  const { getInputValue, addTasks } = useActions()
+  const {  tasks } = useSelector(toDoSelect)
+
+  return (
+    <button
+      className='todo__input-button'
+      onClick={(e) => { onclick(e, addTasks, getInputValue, tasks)}}
+    >
+      create
+    </button>
   );
 }

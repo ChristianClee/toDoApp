@@ -5,6 +5,7 @@ import { filterVar } from "../../redux/variables"
 
 type eventChangeT = React.ChangeEvent<HTMLInputElement>
 type eventKeyBoardT = React.KeyboardEvent<HTMLInputElement>
+type eventMouseEventT = React.MouseEvent<HTMLButtonElement>
 type onchangeT = (
   e: eventChangeT,
   getInputValue: (arg: string) => void
@@ -12,6 +13,13 @@ type onchangeT = (
 
 type onkeydownT = (
   e: eventKeyBoardT,
+  addTasks: (arg: string) => void,
+  getInputValue: (arg: string) => void,
+  tasks: taskT[]
+) => void
+
+type onclickT = (
+  e: eventMouseEventT,
   addTasks: (arg: string) => void,
   getInputValue: (arg: string) => void,
   tasks: taskT[]
@@ -34,6 +42,22 @@ export const onkeydown: onkeydownT = (e, addTasks, getInputValue, tasks) => {
       addTasks(value) // добавление новой задачи
       getInputValue("") // удаление текста из инпута
     }  
+  }
+}
+export const onclick: onclickT = (e, addTasks, getInputValue, tasks) => {
+  const input = e.currentTarget.previousElementSibling
+  // проверка что предыдущий элемет является Инпут (необходимо изменить)
+
+  if (input instanceof HTMLInputElement) {
+    const value: string = input.value
+    console.log(value)
+
+    if (ValidUtilits.isValid(value, tasks)) {
+      // проверка на валидацию
+
+      addTasks(value) // добавление новой задачи
+      getInputValue("") // удаление текста из инпута
+    }
   }
 }
 export const filterFunc: filterT = (tasks, sortValue) => {
