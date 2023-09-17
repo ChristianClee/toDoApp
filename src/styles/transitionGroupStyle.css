@@ -1,0 +1,29 @@
+
+.todoRow-enter-active{
+  animation: enter 500ms forwards;
+}
+.todoRow-exit-active {
+  animation: exit 500ms forwards;
+}
+
+
+
+
+
+@keyframes enter{
+  0%{
+    transform: translateX(-100vw);
+  }
+  100%{
+    transition: translateX(0);
+  }
+}
+@keyframes exit{
+  0%{
+    transition: translateX(0);;
+  }
+  100%{
+    transform: translateX(100vw);
+  }
+ 
+}

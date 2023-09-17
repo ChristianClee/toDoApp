@@ -8,16 +8,16 @@ import type { ToDoStateT, taskT, filterT } from './types'
 
 
 const initialState: ToDoStateT = {
-  inputValue: "",
-  tasks: [],
-  filter: filterVar[0],
-  countSortedTask: 0,
+  inputValue: "",                   // inputValue - это вводивые данные с инпута
+  tasks: [],                        // это массив задач
+  filter: filterVar[0],             // это показатель текущей фильтрации
+  countSortedTask: 0,               // это показатель колличества отфильтрованных элементов
 }
 
 export const toDoSlice = createSlice({
-  name: 'toDo',
-  initialState,
-  reducers: {
+  name: 'toDo',                    // имя слайса
+  initialState,                    
+  reducers: {                       
     getInputValue(state, action: PayloadAction<string>) {
       // просто меняет inputValue на action.payload
       state.inputValue = action.payload
@@ -33,12 +33,14 @@ export const toDoSlice = createSlice({
       state.tasks = newTasks
     },
     setFilter(state, action: PayloadAction<filterT>) {
+      // устанавливает вид сортировки
       state.filter = action.payload
     },
     getCountSortedTask(state, action: PayloadAction<number>) {
       state.countSortedTask = action.payload
     },
     cleanTasks(state) {
+      //cleanTasks удаляет все задачи из массива tasks
       state.tasks = []
     }
 
@@ -46,6 +48,6 @@ export const toDoSlice = createSlice({
   },
 })
 
-export const toDoSelect = (state: RootState) => state.toDo
-export const {actions, reducer} = toDoSlice
+export const toDoSelect = (state: RootState) => state.toDo /*через toDoSelect при помощи useSelector получаю данные из initialState */
+export const {actions, reducer} = toDoSlice  // actions экспортирую в reduxHooks, для последующего упрощения dispatch, reducer экспортирую в store
 

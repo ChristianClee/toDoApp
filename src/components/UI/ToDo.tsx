@@ -1,33 +1,20 @@
-import React, { useEffect } from 'react';
+import React  from 'react';
 import ToDoRow from './ToDoRow';
 import ToDoInput from './ToDoInput';
 import ToDoNav from './ToDoNav';
-import { filterVar } from "../../redux/variables"
-import { useActions } from "../../redux/resuxHooks"
 import { toDoSelect } from "../../redux/toDoSlice"
 import { useSelector } from "react-redux" 
-import { filterFunc } from "../utilits"
-import { useSaveSortedCount } from '../customHooks';
-// import { filterVar } from "../../redux/variables"
+import { filterFunc } from "../utilits/utilits"
+import { useSaveSortedCount } from '../utilits/customHooks';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const ToDo: React.FC = () => {
-  // строка ToDoInput, всегда видна
-  // строки навигации, видна если есть хотябы одна задача */ }
-  // строки задач, видны если есть хотябы одна задача */ }
 
-  const { tasks } = useSelector(toDoSelect)
   return (
     <div className="todo">
-      <ToDoInput /> 
-      {
-        tasks.length > 0 ?
-          <>
-            <ToDoNav /> 
-            <ToDoRows />
-          </>
-          : null
-      }
-      
+      <ToDoInput />    {/*строка ToDoInput, всегда видна, предназначенна для ввода новых задач */}
+      <ToDoNav />      {/* строки ToDoNav, всегда видна, предназначенна для управления задач  */}
+      <ToDoRows />     {/* строки задач, видны если есть хотябы одна задача */}
     </div>
   );
 }
@@ -37,24 +24,39 @@ export default ToDo;
 
 
 const ToDoRows: React.FC = () => {
-  // создаются <ToDoRow></ToDoRow> исходя из колличества элементов в массиве tasks 
-
+  // из массива tasks создаётся <ToDoRow></ToDoRow> 
   const { tasks, filter } = useSelector(toDoSelect)
   const sortValue = filter.value
 
   const tasksSorted = filterFunc(tasks, sortValue)
-  useSaveSortedCount( tasksSorted.length )
+  // но вначале tasks фильтруется по свойству checkMark которое может быть "active" или "", и результат фильтрации записывается в tasksSorted
 
-  
+  useSaveSortedCount( tasksSorted.length )  // определяет колличество отсортированных элементов и сохраняет их в Redux
+
+  /* TransitionGroup спец обертка для анимации списка элементов,
+   автоматически определяет элемент который нужно
+   размонтировать из DOM после анимации */
+
+  /* CSSTransition анимирует обернутые в него элементы
+
+  /* ToDoRow это новые элементы задач,
+   добавленные после ввода в Input */ 
   return (
-    <>
-      {
-        tasksSorted.map((task, index: number) => {
-          return (
-            <ToDoRow task={task} key={task.text + index} />)
-        })
-      }
-    </>
+   
+    <TransitionGroup component={null}>      
+        {
+          tasksSorted.map(task => (
+            <CSSTransition                  
+                key={task.id}
+                timeout={500}
+                classNames="todoRow"
+            >                               
+                <ToDoRow task={task}  />    
+            </CSSTransition>
+          )
+          )
+        }
+      </TransitionGroup>
   );
 }
 

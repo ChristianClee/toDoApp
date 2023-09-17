@@ -4,9 +4,15 @@ import {ACTIVE, PASSIVE} from "./variables"
 
 
 export class ReduxUtilits {
+  // создаёт уникальный id
+  static createId = (): string => {
+    return String(Date.now())
+  }
+
   static createNewTask = (value: string): taskT => {
     // создаёт новый task
-    return {text: value, checkMark: ""}
+    const id = this.createId()
+    return {text: value, checkMark: "", id}
   }
 
   static tuggleTask = (value: checkMarkT): checkMarkT => {
@@ -16,9 +22,9 @@ export class ReduxUtilits {
   }
 
   static updateTasks = (task: taskT, tasks: taskT[]): taskT[] => {
-    // сравнивает task с елементами tasks и если находит одинаковые, то меняет в tasks улементу со свойством checkMark на "active" или ""
+    // сравнивает task с елементами tasks и если находит одинаковые, то меняет  tasks улементу войство checkMark на "active" или ""
     const result = tasks.map((elem) => {
-      if (JSON.stringify(elem) === JSON.stringify(task)) {
+      if (elem.id === task.id) {
         elem.checkMark = this.tuggleTask(elem.checkMark)
       }
       return elem

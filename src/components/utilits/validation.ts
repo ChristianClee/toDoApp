@@ -1,4 +1,4 @@
-import {taskT } from "../redux/types"
+import {taskT } from "../../redux/types"
 
 
 export class ValidUtilits {
@@ -8,7 +8,7 @@ export class ValidUtilits {
   }
 
   static isCoppy(value: string, tasks: taskT[]): boolean {
-    // проверка на пустую сопию
+    // проверка на пустую копию
     for (let task of tasks) {
       if (value === task.text) return true
     }
@@ -19,6 +19,6 @@ export class ValidUtilits {
     // проверка общая
     if (this.isEmpty(value) || this.isCoppy(value, tasks)) {
       return false
-    } else { return true }
+    } else  return true 
   }
 }

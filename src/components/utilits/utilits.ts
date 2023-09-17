@@ -1,6 +1,6 @@
 import { ValidUtilits } from "./validation"
-import { taskT, filterValueT } from "../redux/types"
-import { filterVar } from "../redux/variables"
+import { taskT, filterValueT } from "../../redux/types"
+import { filterVar } from "../../redux/variables"
 
 
 type eventChangeT = React.ChangeEvent<HTMLInputElement>
